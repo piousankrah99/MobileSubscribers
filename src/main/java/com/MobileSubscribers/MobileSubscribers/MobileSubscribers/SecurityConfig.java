@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/Subscribers/login")
                         .defaultSuccessUrl("http://localhost:8080/Subscribers/mobileSubscriber?success")
+                        .loginProcessingUrl("/Subscribers/login")
                         .failureUrl("/login?error=true")
                         .permitAll())
 
@@ -69,6 +70,9 @@ public class SecurityConfig {
               return http.build();
     }
 
+      public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
